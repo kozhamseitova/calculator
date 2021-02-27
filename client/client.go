@@ -1,7 +1,7 @@
 package client
 
 import (
-	"com.grpc.aisha/calculator/calculatorpb"
+	calculator "com.grpc.aisha/calculatorpb"
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
@@ -17,15 +17,15 @@ func main() {
 	}
 	defer cc.Close()
 
-	c := calculatorpb.NewCalculatorServiceClient(cc)
+	c := calculator.NewCalculatorServiceClient(cc)
 
 	doServerStreaming(c)
 	// doClientStreaming(c)
 }
 
-func doServerStreaming(c calculatorpb.CalculatorServiceClient) {
+func doServerStreaming(c calculator.CalculatorServiceClient) {
 	fmt.Println("Starting to do a PrimeDecomposition server streaming RPC...")
-	req := &calculatorpb.PrimeNumberDecompositionRequest{
+	req := &calculator.PrimeNumberDecompositionRequest{
 		Number: 12,
 	}
 	stream, err := c.PrimeNumberDecomposition(context.Background(), req)
@@ -44,7 +44,7 @@ func doServerStreaming(c calculatorpb.CalculatorServiceClient) {
 	}
 }
 
-func doClientStreaming(c calculatorpb.CalculatorServiceClient) {
+func doClientStreaming(c calculator.CalculatorServiceClient) {
 	fmt.Println("Starting to do a ComputeAverage server streaming RPC...")
 	stream, err := c.ComputeAverage(context.Background())
 	if err != nil {
@@ -55,7 +55,7 @@ func doClientStreaming(c calculatorpb.CalculatorServiceClient) {
 
 	for _, number := range numbers {
 		fmt.Printf("Sending number: %v\n", number)
-		stream.Send(&calculatorpb.ComputeAverageRequest{
+		stream.Send(&calculator.ComputeAverageRequest{
 			Number: number,
 		})
 	}
