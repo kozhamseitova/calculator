@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  web1:
+    image:
+      - 2002122002/client:latest
+    ports:
+      - '50051:50051'
+    networks:
+      - bridgeNetwork
+
+  web2:
+    image:
+      - 2002122002/server:latest
+    ports:
+      - '50051:50051'
+    networks:
+      - bridgeNetwork
+networks:
+  bridgeNetwork:
+    driver: bridge
