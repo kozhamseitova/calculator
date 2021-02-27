@@ -26,7 +26,7 @@ func main() {
 func doServerStreaming(c calculator.CalculatorServiceClient) {
 	fmt.Println("Starting to do a PrimeDecomposition server streaming RPC...")
 	req := &calculator.PrimeNumberDecompositionRequest{
-		Number: 12,
+		Number: 120,
 	}
 	stream, err := c.PrimeNumberDecomposition(context.Background(), req)
 	if err != nil {
@@ -51,7 +51,7 @@ func doClientStreaming(c calculator.CalculatorServiceClient) {
 		log.Fatalf("Error while opening stream: %v", err)
 	}
 
-	numbers := []int32{3, 5, 9, 54, 23}
+	numbers := []int32{1, 2, 3, 4}
 
 	for _, number := range numbers {
 		fmt.Printf("Sending number: %v\n", number)
